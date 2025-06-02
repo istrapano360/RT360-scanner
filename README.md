@@ -17,6 +17,7 @@ RPI 5 ima instaliran Wormbook i ima genue remote preko htmla tako da je jednosta
 Rpi softwer mora biti napravljen u pythonu i flsku.
 za sad jednostavna komunikacija između arduina i raspberija. arduino da znak RPI da može fotkati, Rpi fotka i daje status da je gotov s slikanjem te arduino okreće stol.
 RT360 ima 2 pi camere V3 sa auto focusom tako da će to biti izazov fokusirati obje kamere odjednom.
+Sa flaskom se napravi web sučelje pa se može gledati camere preko ip adrese. 
 
 Treba proučiti picamera2 [dokumentaciju](https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf)
 
