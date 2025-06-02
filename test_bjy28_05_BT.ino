@@ -1,4 +1,14 @@
-//test program -- radi! ovaj je zadnji
+//test program -- radi! 
+//triger() je viška, nije se uspio osposobiti sip1A05 kako bi trigao vanski trigger od fotoaparata.
+//skech se sastoji od 7 programa odmah tu dolje piše. nedostaje 7.isto kao i 6. program samo arduino daje znak raspberriju kad da slika i razberi daje povratno arduinu status
+//to se odvija preko seriske komunikacije USB. Bluetooth ili bolje BLE je bio pre kompliciran za izvesti u odnosu na USB.
+//7.1 program koji ima isto kao i 6. program korake od 5° ali pojedinačno treba
+//za svako slikanje stiskati start (to je namjenjeno za slikanje dna predmeta). Postoje 3 tipke Start Stop i Program, ne treba obajšnjavati što koja radi
+//međutim ono što nedostaje je kombinacija tipki Program+Start kako bi se aktivirao 7.1 program ili ako ćemo pojednostavniti dodajmo 8. program.
+//Jedna kombinacija tipti ili dugo držanje stop tipke bila bi dobra za posebnu funkciju "brisanje fotografija u folderu na RPI kako bi krenuli iznova.
+//RPI 5 ima instaliran Wormbook i ima genue remote preko htmla tako da je jednostavno se spojiti na RPI bilo čime.
+//
+
 #include <Stepper.h>
 
 const int stepsForFullTurn = 6144;
@@ -18,7 +28,7 @@ const int BLUE_PIN = 16;
 
 bool isRunning = false;
 bool programButtonPressed = false; 
-bool waitingForPi = false;
+bool waitingForPi = false; //možda je viška
 bool singleShotEntryLock = false;
 bool singleShotMode = false;
 
@@ -94,6 +104,7 @@ void setProgramLED() {
     case 5: setLEDColor(0, 255, 255); break;   // Red for program 5
     case 6: setLEDColor(255, 55, 100); break;   // Aquamarine? for program 6
     case 7: setLEDColor(255, 255, 0); break;   // Blue for program 6
+    //boje su ove koje pišu, RGB redosljed je obrnut i inverzan iz nekog raloga
   }
 }
 
@@ -168,7 +179,7 @@ void setup() {
   delay(100);
   const char* messages[] = {
     "RT360 program za 3D rotacijski stol za skeniranje predmeta.",
-    "Može se koristiti metoda fotogrametrije, scaner ili fotoaparat s triggerom (3.5mm audio jack), triger radi samo kontakt.",
+    "Može se koristiti metoda fotogrametrije, scaner ili fotoaparat ručno za sad",
     "Sadrži 6 programa označenih u bojama ledica.",
     "1. Jedan krug - Magenta",
     "2. Konstantna vrtnja - Cyan",
@@ -178,7 +189,6 @@ void setup() {
     "6. Periode od 5.6° - Blue",
     "Na kraju završenog programa ledica blinka, također i na nakon odabira zadnjeg programa",
     "Program 3, 4, 5 i 6 ujedno aktiviraju i trigger za fotoaparat.",
-    "I ne, ne može se iz ovog arduina izvući C++ sketch ovog programa :)"
   };
 
   // Broj poruka u nizu
