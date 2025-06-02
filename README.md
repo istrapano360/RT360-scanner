@@ -1,14 +1,18 @@
 # 3D-pi-scanner
 3D pi-scanner koristi Raspberry pi sa shieldom za 4 kamere, sto će se napraviti s BJY28 i 3d print nova verzija starog RT360, 
 
-//triger() je viška, nije se uspio osposobiti sip1A05 kako bi trigao vanski trigger od fotoaparata.
-//skech se sastoji od 7 programa odmah tu dolje piše. nedostaje 7.isto kao i 6. program samo arduino daje znak raspberriju kad da slika i razberi daje povratno arduinu status
-//to se odvija preko seriske komunikacije USB. Bluetooth ili bolje BLE je bio pre kompliciran za izvesti u odnosu na USB.
-//7.1 program koji ima isto kao i 6. program korake od 5° ali pojedinačno treba
-//za svako slikanje stiskati start (to je namjenjeno za slikanje dna predmeta). Postoje 3 tipke Start Stop i Program, ne treba obajšnjavati što koja radi
-//međutim ono što nedostaje je kombinacija tipki Program+Start kako bi se aktivirao 7.1 program ili ako ćemo pojednostavniti dodajmo 8. program.
-//Jedna kombinacija tipti ili dugo držanje stop tipke bila bi dobra za posebnu funkciju "brisanje fotografija u folderu na RPI kako bi krenuli iznova.
-//RPI 5 ima instaliran Wormbook i ima genue remote preko htmla tako da je jednostavno se spojiti na RPI bilo čime.
+triger() je viška, nije se uspio osposobiti sip1A05 kako bi trigao vanski trigger od fotoaparata.
+
+skech se sastoji od 7 programa odmah tu dolje piše. nedostaje 7.isto kao i 6. program samo arduino daje znak raspberriju kad da slika i razberi daje povratno arduinu status
+
+to se odvija preko seriske komunikacije USB. Bluetooth ili bolje BLE je bio pre kompliciran za izvesti u odnosu na USB.
+
+7.1 program koji ima isto kao i 6. program korake od 5° ali pojedinačno treba
+za svako slikanje stiskati start (to je namjenjeno za slikanje dna predmeta). Postoje 3 tipke Start Stop i Program, ne treba obajšnjavati što koja radi
+međutim ono što nedostaje je kombinacija tipki Program+Start kako bi se aktivirao 7.1 program ili ako ćemo pojednostavniti dodajmo 8. program.
+
+Jedna kombinacija tipti ili dugo držanje stop tipke bila bi dobra za posebnu funkciju "brisanje fotografija u folderu na RPI kako bi krenuli iznova.
+RPI 5 ima instaliran Wormbook i ima genue remote preko htmla tako da je jednostavno se spojiti na RPI bilo čime.
 
 Rpi softwer mora biti napravljen u pythonu i flsku.
 za sad jednostavna komunikacija između arduina i raspberija. arduino da znak RPI da može fotkati, Rpi fotka i daje status da je gotov s slikanjem te arduino okreće stol.
