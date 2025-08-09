@@ -4,7 +4,7 @@ RT360 je 3D scanner koristi Raspberry pi s dvije V3 Pi kamere, s 28BJY-48 i 3d p
 Skener je napravljem s glavnom funkcijom fotogramtrije, Flask app upravlja preko serijske komunikacije između Raspberry pi i Arduina.
 Sam arduino ima 6 programa za ručno fotografiranje ili snimanje, to je kao nadogradnja za buduće korištenje zajedno sa trigerom za vanjski fotoaparat.
 
-6. program namjenjen je za fotogrametriju i po defaultu je prvi izabran prilikom paljenja arduina. Pomiče stol za otprilike 5° i fotografira 72 puta za jedan kruga,
+Program br 6 namjenjen je za fotogrametriju i po defaultu je prvi izabran prilikom paljenja arduina. Pomiče stol za otprilike 5° i fotografira 72 puta za jedan kruga,
 te pojedinačno treba za svako slikanje stiskati start (to je namjenjeno za slikanje dna predmeta). Postoje 3 tipke Start Stop i Program, ne treba obajšnjavati što koja radi.
 
 RPI 5 ima instaliran Wormbook OS i ima genue remote preko htmla tako da je jednostavno se spojiti na Raspberry Pi.
