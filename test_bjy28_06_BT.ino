@@ -174,7 +174,6 @@ void setup() {
     "6. Periode od 5.6° - Blue",
     "Na kraju završenog programa ledica blinka, također i na nakon odabira zadnjeg programa",
     "Program 3, 4, 5 i 6 ujedno aktiviraju i trigger za fotoaparat.",
-    "I ne, ne može se iz ovog arduina izvući C++ sketch ovog programa :)"
   };
 
   // Broj poruka u nizu
