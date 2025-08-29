@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RT360 Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Kamera 0 -->
+        <div class="camera-container">
+            <div class="camera-title">KAMERA 0</div>
+            <div class="video-feed">
+                {% if preview_active %}
+					<img src="{{ url_for('video_feed', cam_id=0) }}">
+				{% else %}
+					<img src="{{ url_for('static', filename='no_signal.png') }}">
+				{% endif %}
+            </div>
+            <div class="controls">
+                <form action="{{ url_for('zoom', cam_id=0, action='in') }}"><button>Zoom In</button></form>
+                <form action="{{ url_for('zoom', cam_id=0, action='out') }}"><button>Zoom Out</button></form>
+                <form action="{{ url_for('zoom', cam_id=0, action='reset') }}"><button>Reset Zoom</button></form>
+            </div>
+            <!-- Fokus kontrole -->
+			<div class="focus-controls">
+				<button onclick="triggerAutofocus(0)">Autofokus</button>
+				<input type="range" min="{{ FOCUS_MIN }}" max="{{ FOCUS_MAX }}" step="{{ FOCUS_STEP }}" 
+                    value="{{ focus_values[0] }}" class="focus-slider" id="slider-0" 
+                    oninput="updateFocus(0, this.value)">
+				<span id="focus-value-0">{{ focus_values[0] }}</span>
+			</div>
+        </div>
+
+        <!-- Kamera 1 -->
+        <div class="camera-container">
+            <div class="camera-title">KAMERA 1</div>
+            <div class="video-feed">
+				{% if preview_active %}
+					<img src="{{ url_for('video_feed', cam_id=1) }}">
+				{% else %}
+					<img src="{{ url_for('static', filename='no_signal.png') }}">
+				{% endif %}
+            </div>
+            <div class="controls">
+                <form action="{{ url_for('zoom', cam_id=1, action='in') }}"><button>Zoom In</button></form>
+                <form action="{{ url_for('zoom', cam_id=1, action='out') }}"><button>Zoom Out</button></form>
+                <form action="{{ url_for('zoom', cam_id=1, action='reset') }}"><button>Reset Zoom</button></form>
+            </div>
+                 <!-- Fokus kontrole -->
+			<div class="focus-controls">
+				<button onclick="triggerAutofocus(1)">Autofokus</button>
+				<input type="range" min="{{ FOCUS_MIN }}" max="{{ FOCUS_MAX }}" 
+                    step="{{ FOCUS_STEP }}" value="{{ focus_values[1] }}" class="focus-slider" id="slider-1" 
+                    oninput="updateFocus(1, this.value)">
+				<span id="focus-value-1">{{ focus_values[1] }}</span>
+			</div>   
+        </div>
+    </div>
+
+    <!-- Globalni gumbi -->
+    <div class="global-controls">
+		<div class="progress-container" id="scanProgressBarContainer">
+			<div class="progress-bar" id="scanProgressBar">0%</div>
+		</div>
+		<p class="progress-text" id="scanProgressText"></p>
+        <form action="{{ url_for('start_preview') }}" style="display:inline-block;"><button onclick="hideBackground()">Start Preview</button></form>
+        <form action="{{ url_for('stop_preview') }}" style="display:inline-block;"><button onclick="showBackground()">Stop Preview</button></form>
+        <form action="{{ url_for('take_picture_route') }}" style="display:inline-block;"><button>&#128247;Take Picture</button></form>
+        <form action="{{ url_for('new_folder') }}" method="get" style="display:inline-block;"><button>&#128193 Novi folder</button></form>
+        <form action="{{ url_for('start_scan') }}" method="get" style="display:inline-block;"><button>&#128247; Start 360 Scan</button></form>
+		<form action="{{ url_for('cancel_scan') }}" method="get" style="display:inline-block;"><button>&#10060; Cancel Scan</button></form>
+		<form action="{{ url_for('settings') }}" style="display:inline-block;"><button>⚙️ Postavke</button></form>
+        <p><strong>Aktivni folder:</strong> <span style="font-size: 1.5em;">{{ active_folder }}</span></p>
+
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+	<script>
+    </script>    
+
+</body>
+</html>

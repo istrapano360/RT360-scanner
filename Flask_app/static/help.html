@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomoć za Postavke Kamere i Kontrole</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .setting, .control-button {
+            margin-bottom: 20px;
+        }
+        .setting strong, .control-button strong {
+            color: #0056b3;
+            font-size: 1.1em;
+            display: block; /* Za gumbe da budu jedan ispod drugog */
+            margin-bottom: 5px; /* Razmak između naziva gumba i opisa */
+        }
+        .setting p, .control-button p {
+            margin-left: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 30px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .back-button-container {
+            position: fixed;
+            top: 35px;
+            right: 30px;
+            left: auto;
+            z-index: 1000;
+            text-align: right;
+        }
+        
+        .back-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none; /* Uklanja podcrtavanje s linka */
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        code {
+        font-size: 1.15em; /* ili npr. 1.2em ili 18px po želji */
+        background: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pomoć za Postavke Kamere i Kontrole RT360 Scanera</h1>
+        <p>RT360 je skener namjenjen za fotogrametriju, sastoji se Raspberry pi 5, dvije Rpi V3 camere, Arduino nano esp32 koji je skoro a višak
+            i 28BYJ stepper motor. Arduino ima funkciju pokretati stepper motor u programu koji led svijetli cyan boji, uz to ima još 5 drugih programa</p>
+            <ul>
+                <li>1. Magenta - 1 360 krug,</li>
+                <li>2. Cyan - konstantna vrtnja,</li> 
+                <li>3. Žuto - 90 stupnjeva 4 koraka,</li>
+                <li>4. Zeleno - 45 stupnjeva 8 koraka   ,</li>
+                <li>5. Crveno - 30 stupnjeva 12 koraka i</li>
+                <li>6. Cyan - seriska komunikacija s Raspberryem (Tipke na arduinu Stop, Start i Program ne rade u ovom programu)</li>
+            </ul>   
+        <p>Moguće je koristiti stol samo s arduinom za druge potrebe ili snimanja mobitelom.</p>
+            Ova stranica pruža objašnjenja za konfiguracijske postavke kamere te kontrole dostupne u korisničkom sučelju.
+            Razumijevanje ovih postavki pomoći će vam u postizanju željenih rezultata prilikom snimanja fotografija 
+            ili videozapisa.</p>
+        <br>
+        <p>Raspberry se normalno spaja napajanje dok Arduino spaja se bilo kojo USB na raspberriju sa arduinom preko USB C kabla.
+            Arduino ima 2 Usb porta, Crni port na desnoj strani je samo napajanje ako se želi koristiti arduino zasebno, a port 
+            koji je s lijeve strane je direktno na arduinu i služi za serijsku komunikaciju</p>
+        <br>
+            ---
+        <h2>Kako pristupiti GUI-u</h2>
+        <p> Ako već ovo čitate već ste uspijeli ili ste na dobrom putu.
+            porebno je znati IP adresu Raspberry pi 5 uređaja na kojem je pokrenut RT360 Scaner.
+            Scanner se pokreće automatski prilikom startupa, a pristup preko web preglednika se vrši upisom IP adrese Raspberrya.
+        <br>
+            Primjer: <strong><code>http://192.168.1.2:5001</code></strong> 
+        <br>s bilo kojeg web preglednika na računalu ili mobilnom uređaju u istoj mreži, ili
+        <br> Ako je RT360 Scaner pokrenut na lokalnom računalu, možete pristupiti GUI-u putem
+        <br>
+        <strong><code>http://localhost:5001</code></strong></p>        
+        <p>U slučaju da software nije startao ili se ugasio može se ga pronaći u folderu
+        <strong><code>/home/pi/RT360_Scanner</code></strong> i pokrenuti ga s terminala naredbom
+        <strong><code>python3 app_RT360.py</code></strong></p>
+        <br>
+            ---
+        <h2>Prijenos datoteka</h2>
+        <p>Za prijenos datoteka na Raspberry pi 5 uređaj možete koristiti SCP (Secure Copy Protocol) ili SFTP (SSH File Transfer Protocol).
+            Sa Windowsa pokrene se power sheel i komanda je ssh RT360@IP_adresa_Raspberrya, zatim u Filezilli host je Ip adresa Raspberrya, 
+            korisnik <strong>RT360</strong>, lozinka je <strong>raspberry5</strong>ili koja god je postavljena, port je <strong>22</strong>.
+            Nakon uspješne prijave, možete prenijeti datoteke u direktorij.
+
+        <br>
+            ---
+        <h2>Postavke nalaze se u Picam_preset_scaner.py </h2>
+        <p>U ovoj datoteci između komentara <strong>=== Postavke koje se smiju mjenjati ===</strong> nalaze se postavke koje se smiju 
+            mjenjati, u budućnosti planirana je html stranica preko koje će se moći mjenjati te postavke.
+            za sad pažljivo mjenjajte postavke u Picam_preset_scaner.py datoteci.
+        <br>
+            Nakon mjenjanja postavki potrebno je restartati RT360 Scaner da bi se postavke primijenile.
+        <br>
+
+        </p>
+        <h2>Opće Postavke Spremanja</h2>
+        <div class="setting">
+            <strong>SAVE_JPG</strong>
+            <p>Određuje hoće li se snimljene datoteke spremati u **JPG** formatu. Postavite na `True` za spremanje kao JPG. Ako su i `SAVE_JPG` i `SAVE_DNG` postavljeni na `False`, datoteke će se i dalje spremati kao JPG.</p>
+            <ul>
+                <li>`True`: Slike se spremaju u JPG formatu.</li>
+                <li>`False`: Slike se neće spremati isključivo kao JPG (ovisno o `SAVE_DNG`).</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>SAVE_DNG</strong>
+            <p>Određuje hoće li se snimljene datoteke spremati u **DNG** (Digital Negative) formatu. DNG je nekomprimirani RAW format koji zadržava više detalja. Ako su `SAVE_JPG` i `SAVE_DNG` postavljeni na `False`, datoteke će se spremati kao JPG.</p>
+            <ul>
+                <li>`True`: Slike se spremaju u DNG formatu.</li>
+                <li>`False`: Slike se neće spremati kao DNG.</li>
+            </ul>
+        </div>
+
+        ---
+
+        <h2>Postavke Rezolucije i Orijentacije</h2>
+        <div class="setting">
+            <strong>C_res</strong>
+            <p>Postavlja **rezoluciju** slike u pikselima (širina, visina). Navedena vrijednost `(4056, 3040)` predstavlja najveću podržanu rezoluciju.</p>
+            <ul>
+                <li>Primjer: `(4056, 3040)`</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_rotation</strong>
+            <p>Definira **rotaciju** slike u stupnjevima. Primjenjuje se na pregled u pregledniku i zapisuje se u EXIF podatke (samo za JPG datoteke).</p>
+            <ul>
+                <li>`0`: Bez rotacije.</li>
+                <li>`90`: Rotacija za 90 stupnjeva u smjeru kazaljke na satu.</li>
+                <li>`180`: Rotacija za 180 stupnjeva.</li>
+                <li>`270`: Rotacija za 270 stupnjeva u smjeru kazaljke na satu.</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_hflip</strong>
+            <p>Omogućuje **horizontalno preokretanje** (zrcaljenje) slike.</p>
+            <ul>
+                <li>`True`: Slika će biti horizontalno preokrenuta.</li>
+                <li>`False`: Slika neće biti horizontalno preokrenuta.</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_vflip</strong>
+            <p>Omogućuje **vertikalno preokretanje** (zrcaljenje) slike.</p>
+            <ul>
+                <li>`True`: Slika će biti vertikalno preokrenuta.</li>
+                <li>`False`: Slika neće biti vertikalno preokrenuta.</li>
+            </ul>
+        </div>
+
+        ---
+
+        <h2>Postavke Ekspozicije i Balansa Bijele Boje</h2>
+        <div class="setting">
+            <strong>C_AwbEnable</strong>
+            <p>Omogućuje ili onemogućuje **automatski balans bijele boje (AWB)**. Kada je uključen, kamera automatski prilagođava boju kako bi scena izgledala prirodno.</p>
+            <ul>
+                <li>`True`: Automatski balans bijele boje je uključen.</li>
+                <li>`False`: Automatski balans bijele boje je isključen.</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_AwbMode</strong>
+            <p>Postavlja **način rada automatskog balansa bijele boje (AWB)**. Ova postavka ima učinak samo ako je `C_AwbEnable` postavljeno na `True`.</p>
+            <ul>
+                <li>`"auto"`: Kamera automatski bira najbolji balans bijele boje.</li>
+                <li>`"incandescent"`: Za osvjetljenje žaruljama sa žarnom niti (toplo svjetlo).</li>
+                <li>`"fluorescent"`: Za fluorescentno osvjetljenje.</li>
+                <li>`"daylight"`: Za snimanje na otvorenom pod dnevnim svjetlom.</li>
+                <li>`"cloudy"`: Za oblačno vrijeme (dodaje toplinu slici).</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_Exp_Mode</strong>
+            <p>Definira **način ekspozicije**.</p>
+            <ul>
+                <li>`"normal"`: Standardni način ekspozicije.</li>
+                <li>`"short"`: Kraća ekspozicija (korisno za brze pokrete).</li>
+                <li>`"long"`: Dulja ekspozicija (za slabije osvjetljenje ili umjetničke efekte).</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_Meter</strong>
+            <p>Postavlja **način mjerenja ekspozicije**. Određuje kako kamera mjeri svjetlo u sceni kako bi odredila pravilnu ekspoziciju.</p>
+            <ul>
+                <li>`"centre-weighted"`: Mjeri svjetlo u cijeloj sceni, ali daje veći naglasak na središnjem dijelu.</li>
+                <li>`"spot"`: Mjeri svjetlo samo u vrlo malom, specifičnom području (točki) kadra.</li>
+                <li>`"matrix"`: (Također poznato kao evaluativno mjerenje) Mjeri svjetlo u cijelom kadru, podijeli ga na zone i analizira kako bi se odredila optimalna ekspozicija.</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_Gain</strong>
+            <p>Postavlja **digitalno pojačanje** signala senzora. Ekvivalentno je ISO osjetljivosti. Veće vrijednosti povećavaju svjetlinu, ali i šum.</p>
+            <ul>
+                <li>`1.0`: Ekvivalentno ISO 100 (referentna vrijednost).</li>
+                <li>Veće vrijednosti (npr. `2.0`, `4.0`): Povećavaju svjetlinu i šum.</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_Shutter</strong>
+            <p>Postavlja **brzinu zatvarača** u mikrosekundama. Vrijednost `0` označava automatsko podešavanje brzine zatvarača. Veći broj znači sporiji zatvarač (više svjetla, veća mogućnost zamućenja pokreta).</p>
+            <ul>
+                <li>`0`: Automatska brzina zatvarača.</li>
+                <li>Primjer `20000`: Brzina zatvarača od 1/50 sekunde (1 sekunda = 1.000.000 mikrosekundi).</li>
+            </ul>
+        </div>
+
+        ---
+
+        <h2>Postavke Prilagodbe Slike</h2>
+        <div class="setting">
+            <strong>C_Brightness</strong>
+            <p>Prilagođava **svjetlinu** slike. Raspon je od `-1.0` (najtamnije) do `1.0` (najsvjetlije), s `0` kao neutralnom vrijednosti.</p>
+            <ul>
+                <li>Raspon: `-1.0` do `1.0`</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_Contrast</strong>
+            <p>Prilagođava **kontrast** slike. Veće vrijednosti rezultiraju većom razlikom između svijetlih i tamnih područja.</p>
+            <ul>
+                <li>Raspon: `0.0` do `32.0`</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_Saturation</strong>
+            <p>Prilagođava **zasićenost** boja na slici. Veće vrijednosti čine boje živahnijima.</p>
+            <ul>
+                <li>Raspon: `0.0` do `32.0`</li>
+            </ul>
+        </div>
+        <div class="setting">
+            <strong>C_Sharpness</strong>
+            <p>Prilagođava **oštrinu** slike. Veće vrijednosti povećavaju definiciju rubova.</p>
+            <ul>
+                <li>Raspon: `0.0` do `16.0`</li>
+            </ul>
+        </div>
+
+        ---
+
+        <h2>Postavke Formata Izlaza</h2>
+        <div class="setting">
+            <strong>C_format</strong>
+            <p>Postavlja **format piksela** za izlaznu sliku. Različiti formati određuju kako su boje i pikseli kodirani.</p>
+            <ul>
+                <li>`"RGB888"`: Svaki piksel predstavljen je s 8 bita za crvenu, zelenu i plavu komponentu.</li>
+                <li>`"BGR888"`: Slično RGB888, ali s drugačijim redoslijedom boja (plava, zelena, crvena).</li>
+                <li>`"YUV420"`: YUV format s poduzorkovanjem boje 4:2:0.</li>
+                <li>`"YUV420_SP"`: YUV format s poduzorkovanjem boje 4:2:0, ali s planarnim spremištem.</li>
+                <li>`"XBGR8888"`: 32-bitni format s ignoriranom alfa komponentom i BGR redoslijedom.</li>
+                <li>`"XRGB8888"`: 32-bitni format s ignoriranom alfa komponentom i RGB redoslijedom.</li>
+                <li>`"MJPEG"`: Motion JPEG format (komprimirani video stream).</li>
+                <li>`"YUYV"`: YUV format s poduzorkovanjem 4:2:2.</li>
+                <li>`"RGB565"`: 16-bitni RGB format (5 bita crvena, 6 bita zelena, 5 bita plava).</li>
+                <li>`"GRAY8"`: 8-bitni format sivih tonova.</li>
+            </ul>
+        </div>
+
+        ---
+
+        <h2>Kontrole Kamere GUI</h2>
+        <p>Ovaj odjeljak opisuje gumbe i kontrole dostupne u korisničkom sučelju za upravljanje kamerama.</p>
+
+        <div class="control-button">
+            <strong>Zoom In (Povećaj)</strong>
+            <p>Povećava prikaz slike. Pritiskom na ovaj gumb približavate sliku, čineći je većom i detaljnijom.</p>
+        </div>
+        <div class="control-button">
+            <strong>Zoom Out (Smanji)</strong>
+            <p>Smanjuje prikaz slike. Pritiskom na ovaj gumb udaljavate sliku, smanjujući je i prikazujući širi kadar.</p>
+        </div>
+        <div class="control-button">
+            <strong>Reset Zoom (Poništi Povećanje)</strong>
+            <p>Vraća razinu povećanja (zooma) na zadanu, originalnu vrijednost.</p>
+        </div>
+        <div class="control-button">
+            <strong>Autofokus</strong>
+            <p>Pokreće automatsko fokusiranje kamere. Kamera će pokušati samostalno pronaći optimalnu oštrinu.</p>
+        </div>
+        <div class="control-button">
+            <strong>Klizač za Fokus (Manual Focus Slider)</strong>
+            <p>Omogućuje ručno podešavanje fokusa kamere. Pomicanjem klizača možete precizno podesiti oštrinu slike. Za sad autofocus ne ažurira vrijednost na klizaču</p>
+        </div>
+
+        ---
+
+        <h2>Globalne Kontrole</h2>
+        <p>Ovaj odjeljak opisuje globalne kontrole koje utječu na rad cijelog skenera.</p>
+
+        <div class="control-button">
+            <strong>Start Preview (Pokreni Pregled)</strong>
+            <p>Pokreće prikaz video streama uživo s kamera u korisničkom sučelju. 
+                Omogućuje vam pregled onoga što kamere snimaju u stvarnom vremenu.</p>
+        </div>
+        <div class="control-button">
+            <strong>Stop Preview (Zaustavi Pregled)</strong>
+            <p>Zaustavlja prikaz video streama uživo s kamera.</p>
+        </div>
+        <div class="control-button">
+            <strong>&#128247; Take Picture (Snimi Sliku)</strong>
+            <p>Okida jednu fotografiju sa svih aktivnih kamera i sprema je u odabrani folder.</p>
+        </div>
+        <div class="control-button">
+            <strong>&#128193 Novi folder (New Folder)</strong>
+            <p>Stvara novi folder na serveru gdje će se spremati snimljene slike i skenovi. 
+                Preporučeno je svaki novi scan napraviti novi folder</p>
+        </div>
+        <div class="control-button">
+            <strong>&#128247; Start 360 Scan (Pokreni 360 Skeniranje)</strong>
+            <p>Pokreće automatski proces skeniranja objekta u 360 stupnjeva 64 koraka. 
+                Tijekom ovog procesa kamera će snimiti niz slika iz različitih kuteva koju se može pomicati po nosaču 
+                kako bi se stvorio cjeloviti 3D model ili pregled.</p>
+        </div>
+        <div class="control-button">
+            <strong>&#10060; Cancel Scan (Poništi Skeniranje)</strong>
+            <p>Zaustavlja trenutno aktivno 360 skeniranje.</p>
+        </div>
+        <div class="control-button">
+            <strong>Aktivni folder: [Naziv Foldera]</strong>
+            <p>Prikazuje naziv trenutno aktivnog foldera u koji se spremaju sve snimljene slike i skenovi.</p>
+            <p>Po default skener sprema fotografije u <code>/home/RT360/Pictures/RT360_Capture/ </code></p>
+        </div>
+
+        <div class="back-button-container">
+            <a href="javascript:history.back()" class="back-button"> Povratak </a>
+        </div>
+    </div>
+</body>
+</html>

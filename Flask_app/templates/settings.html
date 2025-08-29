@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Postavke kamere</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f0f0f0; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; }
+        input, select { width: 300px; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Postavke kamere</h2>
+    <form method="POST" action="{{ url_for('save_settings') }}">
+        <div class="form-group">
+            <label>SAVE_JPG</label>
+            <input type="checkbox" name="SAVE_JPG" {% if settings.SAVE_JPG %}checked{% endif %}>
+        </div>
+        <div class="form-group">
+            <label>SAVE_DNG</label>
+            <input type="checkbox" name="SAVE_DNG" {% if settings.SAVE_DNG %}checked{% endif %}>
+        </div>
+        <div class="form-group">
+            <label>Rezolucija</label>
+            <select name="C_res">
+                <option value="4056x3040" {% if settings.C_res == "4056x3040" %}selected{% endif %}>4056x3040</option>
+                <option value="1920x1080" {% if settings.C_res == "1920x1080" %}selected{% endif %}>1920x1080</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Rotacija</label>
+            <select name="C_rotation">
+                {% for angle in [0, 90, 180, 270] %}
+                <option value="{{ angle }}" {% if settings.C_rotation == 0 %}selected{% endif %}>0°</option>
+                <option value="{{ angle }}" {% if settings.C_rotation == 90 %}selected{% endif %}>90°</option>
+                <option value="{{ angle }}" {% if settings.C_rotation == 180 %}selected{% endif %}>180°</option>
+                <option value="{{ angle }}" {% if settings.C_rotation == 270 %}selected{% endif %}>270°</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>AWB Mode</label>
+            <select name="C_AwbMode">
+                {% for mode in ["auto", "incandescent", "fluorescent", "daylight", "cloudy"] %}
+                <option value="{{ mode }}" {% if settings.C_AwbMode == mode %}selected{% endif %}>{{ mode }}</option>
+                <option value="{{ mode }}" {% if settings.C_AwbMode == mode %}selected{% endif %}>{{ mode }}</option>
+                <option value="{{ mode }}" {% if settings.C_AwbMode == mode %}selected{% endif %}>{{ mode }}</option>
+                <option value="{{ mode }}" {% if settings.C_AwbMode == mode %}selected{% endif %}>{{ mode }}</option>
+                <option value="{{ mode }}" {% if settings.C_AwbMode == mode %}selected{% endif %}>{{ mode }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <!-- Dodaj ostale kao slider ili select prema potrebi -->
+
+        <button type="submit">Spremi postavke</button>
+    </form>
+</body>
+</html>
